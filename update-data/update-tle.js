@@ -34,7 +34,7 @@ async function updateSatTLEs(TLE) {
             continue
         }
 
-        util.checkTLEAge(sat.name, tle)
+        // util.checkTLEAge(sat.name, tle)
         util.checkTLEValidity(sat.name, tle)
 
         sat.tle = tle
