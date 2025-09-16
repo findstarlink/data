@@ -54,8 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - name: Checkout
+      - name: Checkout last 2 commits
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Get previous commit SHA
         id: prev_commit
         run: |
@@ -63,12 +65,12 @@ jobs:
       - name: Get previous package.json version
         id: prev_version
         run: |
-          git show ${{ steps.prev_commit.outputs.sha }}:data/package.json > prev_package.json
+          git show ${{ steps.prev_commit.outputs.sha }}:package.json > prev_package.json
           echo "version=$(jq -r .version prev_package.json)" >> $GITHUB_OUTPUT
       - name: Get current package.json version
         id: curr_version
         run: |
-          echo "version=$(jq -r .version data/package.json)" >> $GITHUB_OUTPUT
+          echo "version=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
       - name: Compare major versions
         id: has_major_bump
         run: |
