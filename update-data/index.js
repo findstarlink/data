@@ -4,9 +4,9 @@ const { updateTLE } = require('./update-tle')
 const { updateStrings } = require('./update-strings')
 const { downloadSupplementalList } = require('./celestrak')
 
-const LOCAL_TLE_JSON_FILE = 'tle.json'
-const LOCAL_TLE_JS_FILE = 'tle.js'
-const LOCAL_STRINGS_FILE = 'strings_en-US.json'
+const LOCAL_TLE_JSON_FILE = '../tle.json'
+const LOCAL_TLE_JS_FILE = '../tle.js'
+const LOCAL_STRINGS_FILE = '../strings_en-US.json'
 
 async function main() {
     await downloadSupplementalList()

@@ -19,12 +19,16 @@ jobs:
       with:
         node-version: 22.x
         cache: 'npm'
+        cache-dependency-path: update-data/package.json
     - name: Install dependencies
-      run: npm ci
+      run: |
+        cd update-data
+        npm ci
     - name: Update the data
       id: update_data
       run: |
-        node update-data/index.js | tee /tmp/output.txt
+        cd update-data
+        node index.js | tee /tmp/output.txt
         if grep -q "Replaced NORAD ID" /tmp/output.txt; then
           echo "create_release=true" >> $GITHUB_OUTPUT
           NEW_VERSION=$(date +'%Y.%m.%d.%H%M%S')  # format: YEAR.MONTH.DATE.TIMESTAMP_OF_DAY
