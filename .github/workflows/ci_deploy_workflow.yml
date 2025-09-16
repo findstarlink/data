@@ -1,0 +1,30 @@
+# Generated initially using github-actions-wizard (https://github.com/cmdr2/github-actions-wizard)
+
+name: CI Pipeline
+run-name: CI Pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Create tle.js
+      run: |-
+        echo "var TLE = " > tle.js
+        cat tle.json >> tle.js
+        echo "\n" >> tle.js
+    - name: Copy files into the build
+      run: |-
+        mkdir build
+        cp tle.json tle.js strings_en-US.json starlink_celestrak_supplemental.txt build/
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: build

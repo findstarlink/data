@@ -29,34 +29,36 @@ jobs:
       run: |
         cd update-data
         node index.js | tee /tmp/output.txt
+    - name: Update the version in package.json
+      id: update_version
+      run: |
         if grep -q "Replaced NORAD ID" /tmp/output.txt; then
-          echo "create_release=true" >> $GITHUB_OUTPUT
-          NEW_VERSION=$(date +'%Y.%m.%d.%H%M%S')  # format: YEAR.MONTH.DATE.TIMESTAMP_OF_DAY
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-
-          echo "CMD_OUTPUT<<EOF" >> $GITHUB_ENV
-          cat /tmp/output.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          VERSION_UPDATE_TYPE="major"
         else
-          echo "create_release=false" >> $GITHUB_OUTPUT
+          VERSION_UPDATE_TYPE="minor"
         fi
+
+        echo "update_type=$VERSION_UPDATE_TYPE" >> $GITHUB_OUTPUT
+
+        node - <<EOF
+        const semver = require('semver')
+        const fs = require('fs')
+        const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'))
+        pkg.version = semver.inc(pkg.version, '$VERSION_UPDATE_TYPE')
+        fs.writeFileSync('package.json', JSON.stringify(pkg, null, 4))
+        EOF
     - name: Configure Git
       run: |
-        git config --local user.email "elongated-muskarat[bot]@users.noreply.github.com"
-        git config --local user.name "elongated-muskarat[bot]"
+        git config --local user.email "findstarlink-data[bot]@users.noreply.github.com"
+        git config --local user.name "findstarlink-data[bot]"
     - name: Commit changes
       run: |
+        if [ "${{ steps.update_version.outputs.update_type }}" = "major" ]; then
+          COMMIT_MSG=$(cat /tmp/output.txt)
+        else
+          COMMIT_MSG="Update TLE data"
+        fi
+
         git add -A
-        git commit -m "Update TLE data"
-    - name: Create Release
-      if: steps.update_data.outputs.create_release == 'true'
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: v${{ steps.update_data.outputs.new_version }}
-        name: v${{ steps.update_data.outputs.new_version }}
-        body: |
-          ${{ env.CMD_OUTPUT }}
-        draft: false
-        prerelease: false
-    - name: Push changes
+        git commit -m "$COMMIT_MSG"
       run: git push && git push --tags
