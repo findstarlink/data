@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const LOCAL_STARLINK_SUPPLEMENTAL_FILE = 'starlink_celestrak_supplemental.txt'
+const LOCAL_STARLINK_SUPPLEMENTAL_FILE = '../starlink_celestrak_supplemental.txt'
 const STARLINK_SUPPLEMENTAL_URL = 'http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle';
 
 const cache = {}
