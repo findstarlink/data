@@ -1,0 +1,11 @@
+{
+    "name": "update-data",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "sat-timings": "^1.0"
+    },
+    "author": "",
+    "license": "ISC"
+}
