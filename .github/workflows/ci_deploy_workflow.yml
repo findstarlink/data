@@ -87,7 +87,7 @@ jobs:
           echo "bumped=true" >> $GITHUB_OUTPUT
         else
           echo "No major version bump."
-          echo "bumped=true" >> $GITHUB_OUTPUT
+          echo "bumped=false" >> $GITHUB_OUTPUT
         fi
     - name: Get last commit message
       id: get_commit_msg
