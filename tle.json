@@ -8,19 +8,10 @@
                 "2 70172  97.6000 322.4502 0001392  57.6805 335.4253 15.96631250    19"
             ],
             "stdMag": 5,
-            "noradId": "70172",
-            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
+            "noradId": "72001",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-10&FORMAT=tle",
             "launchDate": "2025-09-13T17:55:49.000Z",
-            "active": true,
-            "batch": [
-                {
-                    "noradId": "70172",
-                    "tle": [
-                        "1 70172C 25200Q   25257.73243056 -.00877020  00000+0 -21938-2 0  2574",
-                        "2 70172  97.6000 322.4502 0001392  57.6805 335.4253 15.96631250    19"
-                    ]
-                }
-            ]
+            "active": true
         },
         {
             "name": "starlink298",
