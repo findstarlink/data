@@ -5,7 +5,6 @@ const { updateStrings } = require('./update-strings')
 const { downloadSupplementalList } = require('./celestrak')
 
 const LOCAL_TLE_JSON_FILE = '../tle.json'
-const LOCAL_TLE_JS_FILE = '../tle.js'
 const LOCAL_STRINGS_FILE = '../strings_en-US.json'
 
 async function main() {
@@ -19,7 +18,6 @@ async function main() {
 
     // save the updated data
     fs.writeFileSync(LOCAL_TLE_JSON_FILE, JSON.stringify(newTLE, null, 4))
-    fs.writeFileSync(LOCAL_TLE_JS_FILE, 'var TLE = ' + JSON.stringify(newTLE, null, 4) + '\n')
     fs.writeFileSync(LOCAL_STRINGS_FILE, JSON.stringify(newStrings, null, 4))
 }
 
