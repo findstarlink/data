@@ -24,6 +24,7 @@ jobs:
       run: |
         cd update-data
         npm ci
+        npm install -g semver
     - name: Update the data
       id: update_data
       run: |
