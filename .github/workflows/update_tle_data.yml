@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-node@v5
       with:
         node-version: 22.x
-        cache: 'npm'
+        cache: npm
         cache-dependency-path: update-data/package.json
     - name: Install dependencies
       run: |
