@@ -68,7 +68,7 @@ function getCoordDistanceSquared(coordA, coordB) {
     return x * x + y * y
 }
 
-function isCoordNearby(coordA, coordB, latitudeRange=45, longitudeRange=45, altitudeRange=60) {
+function isCoordNearby(coordA, coordB, latitudeRange=5, longitudeRange=5, altitudeRange=20) {
     let latDiff = Math.abs(coordA[0] - coordB[0])
     let longDiff = Math.abs(coordA[1] - coordB[1])
     let altDiff = Math.abs(coordA[2] - coordB[2])
