@@ -24,7 +24,6 @@ jobs:
       run: |
         cd update-data
         npm ci
-        npm install -g semver
     - name: Update the data
       id: update_data
       run: |
@@ -42,10 +41,17 @@ jobs:
         echo "update_type=$VERSION_UPDATE_TYPE" >> $GITHUB_OUTPUT
 
         node - <<EOF
-        const semver = require('semver')
         const fs = require('fs')
         const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'))
-        pkg.version = semver.inc(pkg.version, '$VERSION_UPDATE_TYPE')
+        pkg.version = pkg.version.split('.')
+        if ("${VERSION_UPDATE_TYPE}" === "major") {
+          pkg.version = [parseInt(pkg.version[0]) + 1, 0, 0]
+        } else if ("${VERSION_UPDATE_TYPE}" === "minor") {
+          pkg.version = [pkg.version[0], parseInt(pkg.version[1]) + 1, 0]
+        } else {
+          pkg.version = [pkg.version[0], pkg.version[1], parseInt(pkg.version[2]) + 1]
+        }
+        pkg.version = pkg.version.join('.')
         fs.writeFileSync('package.json', JSON.stringify(pkg, null, 4))
         EOF
     - name: Configure Git
