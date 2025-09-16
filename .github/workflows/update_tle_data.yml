@@ -61,4 +61,5 @@ jobs:
 
         git add -A
         git commit -m "$COMMIT_MSG"
+    - name: Push changes
       run: git push && git push --tags
