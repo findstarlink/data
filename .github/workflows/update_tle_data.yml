@@ -1,0 +1,58 @@
+# Generated initially using github-actions-wizard (https://github.com/cmdr2/github-actions-wizard)
+
+name: Update TLE Data
+run-name: Update TLE Data
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Runs at 00:00 every Sunday
+  workflow_dispatch:
+jobs:
+  update_tle_data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: 22.x
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Update the data
+      id: update_data
+      run: |
+        node update-data/index.js | tee /tmp/output.txt
+        if grep -q "Replaced NORAD ID" /tmp/output.txt; then
+          echo "create_release=true" >> $GITHUB_OUTPUT
+          NEW_VERSION=$(date +'%Y.%m.%d.%H%M%S')  # format: YEAR.MONTH.DATE.TIMESTAMP_OF_DAY
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+          echo "CMD_OUTPUT<<EOF" >> $GITHUB_ENV
+          cat /tmp/output.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        else
+          echo "create_release=false" >> $GITHUB_OUTPUT
+        fi
+    - name: Configure Git
+      run: |
+        git config --local user.email "elongated-muskarat[bot]@users.noreply.github.com"
+        git config --local user.name "elongated-muskarat[bot]"
+    - name: Commit changes
+      run: |
+        git add -A
+        git commit -m "Update TLE data"
+    - name: Create Release
+      if: steps.update_data.outputs.create_release == 'true'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ steps.update_data.outputs.new_version }}
+        name: v${{ steps.update_data.outputs.new_version }}
+        body: |
+          ${{ env.CMD_OUTPUT }}
+        draft: false
+        prerelease: false
+    - name: Push changes
+      run: git push && git push --tags
