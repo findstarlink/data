@@ -146,11 +146,14 @@ jobs:
         aws-region: us-east-1
     - name: Update a dummy env var in AWS Lambda to force cache refresh
       run: |
-        aws lambda update-function-configuration \
-          --function-name findstarlink \
-          --query LastUpdateStatus \
-          --environment '{
-            "Variables": {
-              "REFRESH_TIME": "'$(date +%s)'"
-            }
-          }'
+        # Fetch current environment variables
+        export FUNC_NAME=findstarlink
+        export REFRESH_TIME=$(date +%s)
+        export CURR_ENV=$(aws lambda get-function-configuration --function-name "$FUNC_NAME" --query 'Environment.Variables' --output json)
+
+        # Merge or add REFRESH_TIME
+        export NEW_ENV=$(echo "$CURR_ENV" | jq --arg rt "$REFRESH_TIME" '. + {REFRESH_TIME: $rt}')
+
+        # Update function configuration with merged environment
+        COMMAND="aws lambda update-function-configuration --function-name "$FUNC_NAME" --query LastUpdateStatus --environment '{\"Variables\":$NEW_ENV}'"
+        eval $COMMAND
