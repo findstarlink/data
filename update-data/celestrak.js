@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const LOCAL_STARLINK_SUPPLEMENTAL_FILE = '../starlink_celestrak_supplemental.txt'
+const LOCAL_STARLINK_SUPPLEMENTAL_FILE = '../starlink_celestrak_supplemental.json'
 const STARLINK_SUPPLEMENTAL_URL = 'http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle';
 
 const cache = {}
@@ -15,8 +15,8 @@ module.exports = {
 async function downloadSupplementalList() {
     let res = await fetch(STARLINK_SUPPLEMENTAL_URL)
     res = await res.text()
-    
-    fs.writeFileSync(LOCAL_STARLINK_SUPPLEMENTAL_FILE, res)
+    const json = convertTextToJSON(res)
+    fs.writeFileSync(LOCAL_STARLINK_SUPPLEMENTAL_FILE, JSON.stringify(json, null, 2))
 }
 
 async function getTLE(satId, tleURL) {
@@ -30,16 +30,17 @@ async function getAllTLEs(tleURL) {
         return cache[tleURL]
     }
 
-    let res = null
+    let tleData = null
     if (tleURL === STARLINK_SUPPLEMENTAL_URL) {
-        res = fs.readFileSync(LOCAL_STARLINK_SUPPLEMENTAL_FILE, 'utf8')
+        // Read and parse the JSON file directly
+        tleData = JSON.parse(fs.readFileSync(LOCAL_STARLINK_SUPPLEMENTAL_FILE, 'utf8'))
     } else {
-        res = await fetch(tleURL)
+        let res = await fetch(tleURL)
         res = await res.text()
+        tleData = convertTextToJSON(res)
     }
 
-    cache[tleURL] = convertTextToJSON(res)
-
+    cache[tleURL] = tleData
     return cache[tleURL]
 }
 
