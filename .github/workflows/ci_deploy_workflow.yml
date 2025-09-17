@@ -14,14 +14,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Create tle.js
+    - name: Create Javascript files
       run: |-
         echo "var TLE = " > tle.js
         cat tle.json >> tle.js
+        echo "var STRINGS = " > strings_en-US.js
+        cat strings_en-US.json >> strings_en-US.js
     - name: Copy files into the build
       run: |-
         mkdir build
-        cp tle.json tle.js strings_en-US.json starlink_celestrak_supplemental.txt build/
+        cp tle.json tle.js strings_en-US.json strings_en-US.js starlink_celestrak_supplemental.txt build/
     - name: Deploy to Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
       with:
