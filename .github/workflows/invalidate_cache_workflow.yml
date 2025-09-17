@@ -1,0 +1,48 @@
+# Generated initially using github-actions-wizard (https://github.com/cmdr2/github-actions-wizard)
+
+name: Invalidate Cache
+run-name: Invalidate Cache
+on:
+  release:
+    types: [created]
+jobs:
+  invalidate_cloudflare_cache:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Ask Cloudflare to invalidate specific cache URLs
+      run: |
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          --data '{
+            "files": [
+              "https://findstarlink.com/tle.json",
+              "https://findstarlink.com/tle.js",
+              "https://findstarlink.com/strings_en-US.json",
+              "https://findstarlink.com/starlink_celestrak_supplemental.txt"
+            ]
+          }'
+
+  invalidate_aws_lambda_cache:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.LAMBDA_DEPLOY_ROLE }}
+        aws-region: us-east-1
+    - name: Update a dummy env var in AWS Lambda to force cache refresh
+      run: |
+        # Fetch current environment variables
+        export FUNC_NAME=findstarlink
+        export REFRESH_TIME=$(date +%s)
+        export CURR_ENV=$(aws lambda get-function-configuration --function-name "$FUNC_NAME" --query 'Environment.Variables' --output json)
+
+        # Merge or add REFRESH_TIME
+        export NEW_ENV=$(echo "$CURR_ENV" | jq --arg rt "$REFRESH_TIME" '. + {REFRESH_TIME: $rt}')
+
+        # Update function configuration with merged environment
+        COMMAND="aws lambda update-function-configuration --function-name "$FUNC_NAME" --query LastUpdateStatus --environment '{\"Variables\":$NEW_ENV}'"
+        eval $COMMAND
