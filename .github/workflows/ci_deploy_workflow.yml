@@ -18,7 +18,6 @@ jobs:
       run: |-
         echo "var TLE = " > tle.js
         cat tle.json >> tle.js
-        echo "\n" >> tle.js
     - name: Copy files into the build
       run: |-
         mkdir build
