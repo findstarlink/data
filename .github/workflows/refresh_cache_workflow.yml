@@ -16,10 +16,10 @@ jobs:
           -H "Content-Type: application/json" \
           --data '{
             "files": [
-              "https://findstarlink.com/tle.json",
-              "https://findstarlink.com/tle.js",
-              "https://findstarlink.com/strings_en-US.json",
-              "https://findstarlink.com/starlink_celestrak_supplemental.txt"
+              "https://data.findstarlink.com/tle.json",
+              "https://data.findstarlink.com/tle.js",
+              "https://data.findstarlink.com/strings_en-US.json",
+              "https://data.findstarlink.com/starlink_celestrak_supplemental.txt"
             ]
           }'
 
@@ -36,7 +36,7 @@ jobs:
     - name: Update a dummy env var in AWS Lambda to force cache refresh
       run: |
         # Fetch current environment variables
-        export FUNC_NAME=findstarlink
+        export FUNC_NAME="${{ secrets.LAMBDA_FUNCTION_NAME }}"
         export REFRESH_TIME=$(date +%s)
         export CURR_ENV=$(aws lambda get-function-configuration --function-name "$FUNC_NAME" --query 'Environment.Variables' --output json)
 
