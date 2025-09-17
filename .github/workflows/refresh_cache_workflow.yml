@@ -1,7 +1,7 @@
 # Generated initially using github-actions-wizard (https://github.com/cmdr2/github-actions-wizard)
 
-name: Invalidate Cache
-run-name: Invalidate Cache
+name: Refresh Cache
+run-name: Refresh Cache
 on:
   release:
     types: [created]
