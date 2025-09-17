@@ -2,7 +2,7 @@ name: Check for New Launch
 run-name: Check for New Launch
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Runs at 00:00 every Sunday
+    - cron: '0 */2 * * *'  # Runs every 2 hours
   workflow_dispatch:
 jobs:
   update_tle_data:
