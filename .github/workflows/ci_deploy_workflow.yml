@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    env:
-      GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -51,3 +49,4 @@ jobs:
         name: v${{ steps.check_release.outputs.version }}
         body: |
           ${{ env.COMMIT_MSG }}
+        token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
