@@ -20,8 +20,8 @@ jobs:
               "https://data.findstarlink.com/tle.js",
               "https://data.findstarlink.com/strings_en-US.json",
               "https://data.findstarlink.com/strings_en-US.js",
-              "https://data.findstarlink.com/starlink_celestrak_supplemental.json",
-              "https://data.findstarlink.com/starlink_celestrak_supplemental.js"
+              "https://data.findstarlink.com/celestrak.json",
+              "https://data.findstarlink.com/celestrak.js"
             ]
           }'
 
