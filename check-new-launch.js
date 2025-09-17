@@ -4,7 +4,7 @@ const LAUNCH_API_URL = "https://ll.thespacedevs.com/2.2.0/launch/previous/?searc
 const LOCAL_TLE_JSON_FILE = 'tle.json'
 
 const ONE_HOUR = 60 * 60 * 1000
-const ALERT_TILL = 2 * ONE_HOUR // after launch
+const CHECK_TILL = 5 * ONE_HOUR // after launch
 
 async function checkForLaunch() {
     try {
@@ -14,8 +14,7 @@ async function checkForLaunch() {
         let prevLaunchDate = new Date(prevLaunch.net)
         let launchTimeDiff = new Date().getTime() - prevLaunchDate.getTime()
 
-        if (launchTimeDiff < ALERT_TILL) {
-            console.log(prevLaunch.name, prevLaunch.net, new Date(prevLaunch.net), new Date())
+        if (launchTimeDiff < CHECK_TILL) {
             await checkAndRegisterTLE(prevLaunch.name, prevLaunch.net)
         }
 
