@@ -5,7 +5,7 @@ run-name: Deploy Data
 on:
   push:
     branches:
-    - maina
+    - main
 jobs:
   deploy_to_cloudflare_pages_on_main_push:
     runs-on: ubuntu-latest
