@@ -37,7 +37,7 @@ jobs:
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy build --project-name=findstarlink-data --commit-dirty=true
+        command: pages deploy build --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }} --commit-dirty=true
     - name: Check if commit message has "RELEASE:" in it
       id: check_release
       run: |
