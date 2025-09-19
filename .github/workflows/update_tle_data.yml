@@ -4,7 +4,7 @@ name: Update TLE Data
 run-name: Update TLE Data
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 6 hours
+    - cron: '0 */12 * * *'  # Runs every 12 hours
   workflow_dispatch:
 jobs:
   update_tle_data:
