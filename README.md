@@ -1,4 +1,4 @@
-# starlink-data
+# data
 Updates the TLE and strings data.
 
 * TLE: [https://data.findstarlink.com/tle.json](https://data.findstarlink.com/tle.json)
