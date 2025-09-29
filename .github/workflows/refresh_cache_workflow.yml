@@ -5,6 +5,7 @@ run-name: Refresh Cache
 on:
   release:
     types: [created]
+  workflow_dispatch:
 jobs:
   invalidate_cloudflare_cache:
     runs-on: ubuntu-latest
