@@ -34,7 +34,7 @@
                 "2 70311  53.1568  14.0029 0000170  51.5668 317.7025 16.02592409    11"
             ],
             "stdMag": 5,
-            "noradId": "70311",
+            "noradId": "70310",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-09-25T08:39:00.000Z",
             "active": true
