@@ -22,7 +22,7 @@
             ],
             "stdMag": 5,
             "noradId": "70311",
-            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-15&FORMAT=tle",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-09-25T08:39:00.000Z",
             "active": true
         },
