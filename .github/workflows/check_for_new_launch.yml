@@ -21,14 +21,15 @@ jobs:
     - name: Check for new launch and update TLE data
       id: check_new_launch
       run: |
-        node check-new-launch.js > /tmp/output.txt 2>&1; exit_code=$?
-        cat /tmp/output.txt
+        node check-new-launch.js | tee /tmp/output.txt
+        exit_code=${PIPESTATUS[0]}
         if grep -q "Added new launch" /tmp/output.txt; then
           echo "new_launch=true" >> $GITHUB_OUTPUT
         else
           echo "new_launch=false" >> $GITHUB_OUTPUT
         fi
         exit $exit_code
+      shell: bash
     - name: Configure Git
       if: steps.check_new_launch.outputs.new_launch == 'true'
       run: |
