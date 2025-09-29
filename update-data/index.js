@@ -16,8 +16,6 @@ async function main() {
     const newTLE = await updateTLE(oldTLE)
     const newStrings = await updateStrings(newTLE, oldStrings)
 
-    throw new Error("Test")
-
     // save the updated data
     fs.writeFileSync(LOCAL_TLE_JSON_FILE, JSON.stringify(newTLE, null, 4))
     fs.writeFileSync(LOCAL_STRINGS_FILE, JSON.stringify(newStrings, null, 4))
