@@ -1,6 +1,19 @@
 {
     "satellites": [
         {
+            "name": "starlink305",
+            "title": "Starlink-305 (G11-20)",
+            "tle": [
+                "1 72001C 25221B   25272.02234560  .01381300  00000+0  21451-2 0    05",
+                "2 72001  53.1655  90.8665 0008164 258.5423 100.6947 16.02874497    15"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g11-20&FORMAT=tle",
+            "launchDate": "2025-09-29T02:04:50.000Z",
+            "active": true
+        },
+        {
             "name": "starlink304",
             "title": "Starlink-304 (G17-11)",
             "tle": [
