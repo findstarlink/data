@@ -13,9 +13,7 @@ async function updateTLE(TLE) {
     await updateLaunchesWithReplacementNoradIds(newSatData)
 
     if (SATS_WITH_MISSING_TLE.length > 0) {
-        let msg = '[ERROR] Could not find TLE for ' + SATS_WITH_MISSING_TLE.length + ' satellites in supplemental list: ' + SATS_WITH_MISSING_TLE.join(', ')
-        console.log(msg)
-        process.exit(1)
+        throw new Error('[ERROR] Could not find TLE for ' + SATS_WITH_MISSING_TLE.length + ' satellites in supplemental list: ' + SATS_WITH_MISSING_TLE.join(', '))
     }
 
     return newSatData

@@ -29,7 +29,9 @@ jobs:
     - name: Update the data
       run: |
         cd update-data
-        node index.js | tee /tmp/output.txt
+        node index.js > /tmp/output.txt 2>&1; exit_code=$?
+        cat /tmp/output.txt
+        exit $exit_code
     - name: Configure Git
       run: |
         git config --local user.email "findstarlink-data[bot]@users.noreply.github.com"
