@@ -106,11 +106,12 @@ async function replaceSatNoradId(sat, createBatch) {
         let logMsg = `Replaced NORAD ID ${satLabel} with ${replacementNoradId}`
         console.log(logMsg)
 
+        let oldSatId = sat.noradId
         sat.noradId = replacementNoradId
         sat.tle = replacementTLE
 
         // remove from missing list, if present
-        let idx = SATS_WITH_MISSING_TLE.indexOf(sat.noradId)
+        let idx = SATS_WITH_MISSING_TLE.indexOf(oldSatId)
         if (idx !== -1) {
             SATS_WITH_MISSING_TLE.splice(idx, 1)
         }
