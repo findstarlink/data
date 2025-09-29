@@ -8,10 +8,10 @@
                 "2 72001  97.6075 127.5555 0010458 246.9501 129.0236 16.04161153    13"
             ],
             "stdMag": 5,
-            "noradId": "72001",
-            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-11&FORMAT=tle",
+            "noradId": "70337",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-09-26T04:26:29.000Z",
-            "active": false
+            "active": true
         },
         {
             "name": "starlink303",
@@ -21,10 +21,10 @@
                 "2 72001  53.1631  31.1909 0006939 289.9583 344.9822 16.00918440    11"
             ],
             "stdMag": 5,
-            "noradId": "72001",
+            "noradId": "70311",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-15&FORMAT=tle",
             "launchDate": "2025-09-25T08:39:00.000Z",
-            "active": false
+            "active": true
         },
         {
             "name": "starlink302",
