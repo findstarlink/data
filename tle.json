@@ -1,6 +1,19 @@
 {
     "satellites": [
         {
+            "name": "starlink309",
+            "title": "Starlink-309 (G10-52)",
+            "tle": [
+                "1 72001C 25232B   25289.43845046  .01404300  00000+0  21210-2 0    06",
+                "2 72001  53.1632  63.9657 0008662 278.6690 356.9285 16.03320366    17"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-52&FORMAT=tle",
+            "launchDate": "2025-10-16T09:27:10.000Z",
+            "active": true
+        },
+        {
             "name": "starlink308",
             "title": "Starlink-308 (G11-17)",
             "tle": [
