@@ -156,8 +156,13 @@ async function getReplacementSats(satToReplace) {
 
     // find nearby sats
     let nearbySats = allSats.filter(sat => {
-        if (satCoordCache[sat.noradId] === undefined) {
-            satCoordCache[sat.noradId] = predict.getCurrentSatelliteCoords(sat)
+        try {
+            if (satCoordCache[sat.noradId] === undefined) {
+                satCoordCache[sat.noradId] = predict.getCurrentSatelliteCoords(sat)
+            }
+        } catch (e) {
+            console.error('could not compute current coords for sat', sat.noradId, sat.tle, e)
+            return false
         }
         return util.isCoordNearby(satCoordCache[sat.noradId], currentCoord)
     })
