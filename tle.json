@@ -8,7 +8,7 @@
                 "2 72001  42.9949 292.7800 0008771 281.6007  96.6161 16.04348167    14"
             ],
             "stdMag": 5,
-            "noradId": "72001",
+            "noradId": "72000",
             "tleUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g6-85&FORMAT=tle",
             "launchDate": "2025-11-15T06:44:20.000Z",
             "active": true
@@ -21,7 +21,7 @@
                 "2 72001  42.9948 238.5881 0010119 290.4731  88.1028 16.03636639    12"
             ],
             "stdMag": 5,
-            "noradId": "70807",
+            "noradId": "72000",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g6-89&FORMAT=tle",
             "launchDate": "2025-11-15T03:08:10.000Z",
             "active": true
