@@ -8,8 +8,8 @@
                 "2 72000  42.9950 292.7800 0008735 282.6962  95.5201 16.04354985    14"
             ],
             "stdMag": 5,
-            "noradId": "72001",
-            "tleUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g6-85&FORMAT=tle",
+            "noradId": "70845",
+            "tleUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-15T06:44:20.000Z",
             "active": true
         },
