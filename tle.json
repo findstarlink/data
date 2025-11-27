@@ -869,7 +869,7 @@
             "noradId": "66512",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-15T06:44:20.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "66512",
@@ -919,7 +919,7 @@
             "noradId": "66456",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-15T03:08:10.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "66456",
@@ -990,7 +990,7 @@
             "noradId": "66450",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-11T03:21:30.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "66450",
@@ -1208,7 +1208,7 @@
             "noradId": "66406",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-09T08:10:10.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "66406",
@@ -1419,7 +1419,7 @@
             "noradId": "66358",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-06T21:13:50.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "66358",
@@ -1630,7 +1630,7 @@
             "noradId": "66321",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2025-11-06T01:31:10.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "66321",
