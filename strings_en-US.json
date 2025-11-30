@@ -1,7 +1,7 @@
 {
-    "announcementHome": "The new Starlink satellites have launched!",
+    "announcementHome": "The next Starlink launch is planned in a few days",
     "announcementResults": "Please note, these timings are not 100% accurate, since the orbit of the satellites change often, and without warning. Even if the satellites pass over you, many things need to go right for them to reflect enough sunlight to be seen. I apologize if there are failed attempts. Thanks!",
-    "announcementPopup": "",
+    "announcementPopup": "Hi there, based on user reports, Starlink trains are not very visible right now.<br/><br/>This is because Starlink's company has reduced their brightness (to avoid disturbing astronomers): <a href=\"http://bbc.com/news/technology-52391758\" target=\"_blank\">more details</a><br/><br/>But a few reports of successful sightings come in every day, so you can try your luck :) I'm working on predicting this better, sorry.<br/><br/>The next Starlink launch is planned in a few days, and will be very bright for 3-4 days after that. Good luck!",
     "--separator--": "",
     "note_starlink295": "This may not be visible, based on recent user reports",
     "note_starlink296": "This may not be visible, based on recent user reports",
@@ -31,5 +31,6 @@
     "note_starlink322": "This may not be visible, based on recent user reports",
     "note_starlink324": "This may not be visible, based on recent user reports",
     "note_starlink325": "This may not be visible, based on recent user reports",
-    "note_starlink326": "This may not be visible, based on recent user reports"
+    "note_starlink326": "This may not be visible, based on recent user reports",
+    "note_starlink327": "This may not be visible, based on recent user reports"
 }
