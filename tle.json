@@ -1,6 +1,19 @@
 {
     "satellites": [
         {
+            "name": "starlink341",
+            "title": "Starlink-341 (G6-96)",
+            "tle": [
+                "1 72001C 26003B   26009.94869421  .01325700  00000+0  16845-2 0    07",
+                "2 72001  42.9948 211.6860 0009288 285.1776  93.4599 16.05868315    18"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g6-96&FORMAT=tle",
+            "launchDate": "2026-01-09T21:41:00.000Z",
+            "active": true
+        },
+        {
             "name": "starlink340",
             "title": "Starlink-340 (G6-88) (new)",
             "tle": [
