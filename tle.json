@@ -1,6 +1,19 @@
 {
     "satellites": [
         {
+            "name": "starlink347",
+            "title": "Starlink-347 (G17-19)",
+            "tle": [
+                "1 72001C 26018B   26029.67981806  .01386400  00000+0  16839-2 0    04",
+                "2 72001  97.2908  54.0233 0011839 279.2827  96.4285 16.07514003    15"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-19&FORMAT=tle",
+            "launchDate": "2026-01-29T17:53:20.000Z",
+            "active": true
+        },
+        {
             "name": "starlink346",
             "title": "Starlink-346 (G17-20) (new)",
             "tle": [
