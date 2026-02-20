@@ -1,6 +1,19 @@
 {
     "satellites": [
         {
+            "name": "starlink354",
+            "title": "Starlink-354 (G10-36)",
+            "tle": [
+                "1 72001C 26034B   26051.11413796  .00986540  00000+0  14996-2 0    06",
+                "2 72001  53.1632 300.3952 0012994 299.2351  77.7130 16.03252573    10"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-36&FORMAT=tle",
+            "launchDate": "2026-02-20T01:41:40.000Z",
+            "active": true
+        },
+        {
             "name": "starlink353",
             "title": "Starlink-353 (G6-103) (new)",
             "tle": [
