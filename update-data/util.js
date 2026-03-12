@@ -18,7 +18,7 @@ function checkTLEAge(satId, tle) {
 
     if (epochNow > epochTLE + TLE_UPDATE_ALARM_AGE) {
         console.log('TLE age', epochNow, epochTLE, (epochNow - epochTLE), TLE_UPDATE_ALARM_AGE)
-        // throw "TLE for " + satId + " is out of date!"
+        throw "TLE for " + satId + " is out of date!"
     }
 }
 
@@ -30,7 +30,7 @@ function checkTLEValidity(satName, tle) {
         "stdMag": 5
     }
     try {
-        let res = predict.getVisibleTimes(sat, 20.7984, -156.3319, {daysCount: 5, startDaysOffset: -1})
+        let res = predict.getVisibleTimes(sat, 20.7984, -156.3319, { daysCount: 5, startDaysOffset: -1 })
     } catch (e) {
         console.log('Error using new TLE for ' + satName, e)
         throw e
@@ -68,7 +68,7 @@ function getCoordDistanceSquared(coordA, coordB) {
     return x * x + y * y
 }
 
-function isCoordNearby(coordA, coordB, latitudeRange=5, longitudeRange=5, altitudeRange=20) {
+function isCoordNearby(coordA, coordB, latitudeRange = 5, longitudeRange = 5, altitudeRange = 20) {
     let latDiff = Math.abs(coordA[0] - coordB[0])
     let longDiff = Math.abs(coordA[1] - coordB[1])
     let altDiff = Math.abs(coordA[2] - coordB[2])
