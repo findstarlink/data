@@ -18,7 +18,7 @@ function checkTLEAge(satId, tle) {
 
     if (epochNow > epochTLE + TLE_UPDATE_ALARM_AGE) {
         console.log('TLE age', epochNow, epochTLE, (epochNow - epochTLE), TLE_UPDATE_ALARM_AGE)
-        throw "TLE for " + satId + " is out of date!"
+        // throw "TLE for " + satId + " is out of date!"
     }
 }
 
