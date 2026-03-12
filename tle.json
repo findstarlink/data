@@ -8,9 +8,9 @@
                 "2 70077  97.2832  30.8572 0001369  73.1858  41.1477 16.11347804    10"
             ],
             "stdMag": 5,
-            "noradId": "70077",
+            "noradId": "72001",
             "intDes": "2026-044",
-            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-18&FORMAT=tle",
             "launchDate": "2026-03-08T11:00:19.000Z",
             "active": true
         },
