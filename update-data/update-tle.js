@@ -89,6 +89,8 @@ async function replaceSatNoradId(sat) {
         return
     }
 
+    replacementSats = Object.values(replacementSats)
+
     let replacementNoradId = replacementSats[0].noradId
     let replacementTLE = replacementSats[0].tle
 
