@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const LAUNCH_API_URL = "https://ll.thespacedevs.com/2.2.0/launch/previous/?search=starlink&limit=1"
+const LAUNCH_API_URL = "https://ll.thespacedevs.com/2.3.0/launches/previous/?search=starlink&limit=1"
 const LOCAL_TLE_JSON_FILE = 'tle.json'
 
 const ONE_HOUR = 60 * 60 * 1000
@@ -11,11 +11,12 @@ async function checkForLaunch() {
         let res = await fetch(LAUNCH_API_URL)
         let prevLaunches = await res.json()
         let prevLaunch = prevLaunches.results[0]
-        let prevLaunchDate = new Date(prevLaunch.net)
+        let prevLaunchIntDes = prevLaunch.launch_designator
+        let prevLaunchDate = new Date(prevLaunch.net) // example: "2024-10-30T21:10:00Z"
         let launchTimeDiff = new Date().getTime() - prevLaunchDate.getTime()
 
         if (launchTimeDiff < CHECK_TILL) {
-            await checkAndRegisterTLE(prevLaunch.name, prevLaunch.net)
+            await checkAndRegisterTLE(prevLaunch.name, prevLaunchIntDes, prevLaunchDate)
         }
 
         console.log(`Previous launch (${prevLaunch.name}) was at ${prevLaunchDate} which is ${(launchTimeDiff / ONE_HOUR).toFixed(2)} hours ago`)
@@ -24,8 +25,7 @@ async function checkForLaunch() {
     }
 }
 
-async function checkAndRegisterTLE(launchName, launchDate) {
-    let launchDateTs = new Date(launchDate) // launchDate example: "2024-10-30T21:10:00Z"
+async function checkAndRegisterTLE(launchName, launchIntDes, launchDateTs) {
     let groupInfo = launchName.split(" ") // launchName example: "Falcon 9 Block 5 | Starlink Group 10-13"
     groupInfo = groupInfo[groupInfo.length - 1]
 
@@ -64,6 +64,7 @@ async function checkAndRegisterTLE(launchName, launchDate) {
         "tle": tle,
         "stdMag": 5,
         "noradId": noradId,
+        "intDes": launchIntDes,
         "tleUrl": tleUrl,
         "launchDate": launchDateTs.toISOString(),
         "active": true
