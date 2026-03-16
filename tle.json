@@ -8,9 +8,9 @@
                 "2 72001  53.1608 258.4605 0010185 270.3818 355.4525 16.05331673    14"
             ],
             "stdMag": 5,
-            "noradId": "72001",
-            "intDes": "2026-050",
-            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-48&FORMAT=tle",
+            "noradId": "70104",
+            "intDes": null,
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2026-03-14T12:37:10.000Z",
             "active": true
         },
@@ -22,9 +22,9 @@
                 "2 72001  97.2906  91.6373 0011280 279.0292  95.6732 16.08146115    13"
             ],
             "stdMag": 5,
-            "noradId": "72001",
-            "intDes": "2026-049",
-            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-31&FORMAT=tle",
+            "noradId": "70079",
+            "intDes": null,
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2026-03-13T14:57:59.000Z",
             "active": true
         },
