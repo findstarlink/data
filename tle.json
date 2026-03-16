@@ -9,7 +9,7 @@
             ],
             "stdMag": 5,
             "noradId": "72001",
-            "intDes": null,
+            "intDes": "2026-050",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-48&FORMAT=tle",
             "launchDate": "2026-03-14T12:37:10.000Z",
             "active": true
@@ -23,7 +23,7 @@
             ],
             "stdMag": 5,
             "noradId": "72001",
-            "intDes": null,
+            "intDes": "2026-049",
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-31&FORMAT=tle",
             "launchDate": "2026-03-13T14:57:59.000Z",
             "active": true
