@@ -55,16 +55,18 @@ async function updateSatTLEs(TLE) {
 async function updateLaunchesWithReplacementNoradIds(newSatData) {
     let supplementalList = await celestrak.getAllTLEs(celestrak.STARLINK_SUPPLEMENTAL_URL)
 
+    // Example switches: 72001 (on launch) -> 72010 (a few days later) -> 68012 (after official switch)
+
     let satsToReplace = newSatData.satellites.filter(sat => {
         if (!sat.active) {
             return false
         }
 
-        if (sat.tleUrl.includes("starlink-g")) {  // it's a new launch
+        if (sat.tleUrl.includes("starlink-g")) {  // it's a new launch, e.g. 72001 -> 72010
             return true
         }
 
-        if (supplementalList[sat.noradId] === undefined) {
+        if (supplementalList[sat.noradId] === undefined) { // e.g. 72010 -> 68012
             // it's a provisional to official id switch, since the noradId wasn't found in the list
             return true
         }
@@ -77,20 +79,11 @@ async function updateLaunchesWithReplacementNoradIds(newSatData) {
     for (let idx in satsToReplace) {
         let newSat = satsToReplace[idx]
 
-        if (newSat.hasOwnProperty("batch")) {  // provisional to official
-            for (let batchIdx in newSat.batch) {
-                let batchSat = newSat.batch[batchIdx]
-                await replaceSatNoradId(batchSat, false)
-            }
-
-            await replaceSatNoradId(newSat, false)
-        } else {  // new satellite
-            await replaceSatNoradId(newSat, true)
-        }
+        await replaceSatNoradId(newSat)
     }
 }
 
-async function replaceSatNoradId(sat, createBatch) {
+async function replaceSatNoradId(sat) {
     let replacementSats = await getReplacementSats(sat)
     if (replacementSats.length === 0) {
         return
@@ -118,10 +111,8 @@ async function replaceSatNoradId(sat, createBatch) {
             SATS_WITH_MISSING_TLE.splice(idx, 1)
         }
 
-        if (createBatch) {
-            sat.tleUrl = celestrak.STARLINK_SUPPLEMENTAL_URL
-            sat.batch = replacementSats
-        }
+        sat.tleUrl = celestrak.STARLINK_SUPPLEMENTAL_URL
+        sat.batch = replacementSats
     } catch (e) {
         console.error('cannot replace', sat.name, 'with invalid TLE', replacementTLE, e)
     }
@@ -134,84 +125,10 @@ async function getReplacementSats(satToReplace) {
     //     console.log(' > checking batch', satToReplace.noradId)
     // }
 
-    satToReplace = {  // keep a local copy
-        tle: [
-            satToReplace.tle[0],
-            satToReplace.tle[1]
-        ]
+    if (!satToReplace.intDes) {
+        throw new Error('sat ' + satToReplace.name + ' (' + satToReplace.noradId + ') is missing intDes, cannot reliably find replacement TLE')
     }
 
-    const PATH_CHECK_MINS = 3
-
-    let tleList = await celestrak.getAllTLEs(celestrak.STARLINK_SUPPLEMENTAL_URL)
-
-    // console.log("fetched tle list")
-
-    let currentCoord = predict.getCurrentSatelliteCoords(satToReplace)
-    // console.log('curr coord', currentCoord)
-
-    // prepare all the sats
-    let allSats = []
-    for (let noradId in tleList) {
-        allSats.push(tleList[noradId])
-    }
-
-    // find nearby sats
-    let nearbySats = allSats.filter(sat => {
-        try {
-            if (satCoordCache[sat.noradId] === undefined) {
-                satCoordCache[sat.noradId] = predict.getCurrentSatelliteCoords(sat)
-            }
-        } catch (e) {
-            console.error('could not compute current coords for sat', sat.noradId, sat.tle, e)
-            return false
-        }
-        return util.isCoordNearby(satCoordCache[sat.noradId], currentCoord)
-    })
-
-    // sort by distance
-    nearbySats.forEach(sat => {
-        sat.distSqr = util.getCoordDistanceSquared(satCoordCache[sat.noradId], currentCoord)
-    })
-
-    nearbySats.sort((a, b) => {
-        return a.distSqr - b.distSqr
-    })
-
-    nearbySats.forEach(sat => {
-        delete sat.distSqr
-    })
-
-    // console.log('nearby sats', nearbySats.map(sat => sat.noradId))
-
-    if (nearbySats.length === 0) {
-        return nearbySats
-    }
-
-    let currentPath = predict.getSatellitePath(satToReplace, PATH_CHECK_MINS).path
-
-    let satsOnSamePath = nearbySats.filter(sat => {
-        let path = predict.getSatellitePath(sat, PATH_CHECK_MINS).path
-
-        for (let idx in currentPath) {
-            let currPathCoord = currentPath[idx]
-            let newPathCoord = path[idx]
-
-            if (!util.isCoordNearby(currPathCoord, newPathCoord)) {
-                return false
-            }
-        }
-
-        return true
-    })
-
-    satsOnSamePath.forEach(sat => {
-        if ('satrec' in sat) {
-            delete sat.satrec
-        }
-    })
-
-    // console.log('nearby sats following the same path', satsOnSamePath.map(sat => sat.noradId))
-
-    return satsOnSamePath
+    let tleURL = `https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?INTDES=${satToReplace.intDes}&FORMAT=tle`
+    return await celestrak.getAllTLEs(tleURL)
 }
