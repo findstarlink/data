@@ -1,6 +1,20 @@
 {
     "satellites": [
         {
+            "name": "starlink366",
+            "title": "Starlink-366 (G17-24)",
+            "tle": [
+                "1 72001C 26053B   26076.26460139  .01272100  00000+0  14047-2 0    01",
+                "2 72001  97.2904 310.4777 0010568 272.0902 103.4843 16.09073723    16"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": null,
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-24&FORMAT=tle",
+            "launchDate": "2026-03-17T05:19:09.000Z",
+            "active": true
+        },
+        {
             "name": "starlink365",
             "title": "Starlink-365 (G10-48) (new)",
             "tle": [
