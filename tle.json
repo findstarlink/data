@@ -1,6 +1,20 @@
 {
     "satellites": [
         {
+            "name": "starlink374",
+            "title": "Starlink-374 (G17-35)",
+            "tle": [
+                "1 72001C 26073B   26097.16129306  .01277900  00000+0  15368-2 0    03",
+                "2 72001  97.2900 293.9531 0011513 284.1265  90.2961 16.07716370    16"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": null,
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-35&FORMAT=tle",
+            "launchDate": "2026-04-07T02:50:39.000Z",
+            "active": true
+        },
+        {
             "name": "starlink373",
             "title": "Starlink-373 (G10-58) (new)",
             "tle": [
