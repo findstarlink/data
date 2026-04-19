@@ -1,6 +1,20 @@
 {
     "satellites": [
         {
+            "name": "starlink378",
+            "title": "Starlink-378 (G17-22)",
+            "tle": [
+                "1 72001C 26086B   26109.63937639  .01404400  00000+0  16054-2 0    09",
+                "2 72001  97.2905 118.3517 0010627 272.0590 101.3983 16.08489359    10"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": null,
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-22&FORMAT=tle",
+            "launchDate": "2026-04-19T16:03:09.000Z",
+            "active": true
+        },
+        {
             "name": "starlink377",
             "title": "Starlink-377 (G17-27) (new)",
             "tle": [
