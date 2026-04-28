@@ -5,6 +5,10 @@ const ONE_DAY = 24 * 60 * 60 * 1000
 const MAX_LAUNCH_AGE_DAYS = 20
 const MAX_LAUNCH_AGE_MS = MAX_LAUNCH_AGE_DAYS * ONE_DAY
 
+function getSatelliteLabel(sat) {
+    return sat.title || sat.name || sat.noradId || 'unknown satellite'
+}
+
 function pruneOldLaunches() {
     const tles = JSON.parse(fs.readFileSync(LOCAL_TLE_JSON_FILE, 'utf8'))
     const satellitesBefore = tles.satellites
@@ -18,7 +22,7 @@ function pruneOldLaunches() {
 
         const launchTime = new Date(sat.launchDate).getTime()
         if (Number.isNaN(launchTime)) {
-            console.warn(`Skipping ${sat.name}: invalid launchDate ${sat.launchDate}`)
+            console.warn(`Skipping ${getSatelliteLabel(sat)}: invalid launchDate ${sat.launchDate}`)
             return true
         }
 
@@ -36,7 +40,7 @@ function pruneOldLaunches() {
     }
 
     fs.writeFileSync(LOCAL_TLE_JSON_FILE, JSON.stringify(tles, null, 4))
-    console.log(`Pruned old launches (${prunedSatellites.length}): ${prunedSatellites.map(sat => sat.title || sat.name).join(', ')}`)
+    console.log(`Pruned old launches (${prunedSatellites.length}): ${prunedSatellites.map(getSatelliteLabel).join(', ')}`)
 }
 
 process.on('unhandledRejection', reason => {

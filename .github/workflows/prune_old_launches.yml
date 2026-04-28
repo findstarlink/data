@@ -2,7 +2,7 @@ name: Prune Old Launches
 run-name: Prune Old Launches
 on:
   schedule:
-    - cron: '0 0 * * 4'  # Runs every Thursday
+    - cron: '0 0 * * 4'  # Runs every Thursday at 00:00 UTC
   workflow_dispatch:
 jobs:
   prune_old_launches:
