@@ -38,18 +38,10 @@ jobs:
     - name: Commit changes
       if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
       run: |
-        echo "RELEASE: $(cat /tmp/output.txt)" > /tmp/commit_msg.txt
+        echo "PRUNED: $(cat /tmp/output.txt)" > /tmp/commit_msg.txt
 
         git add -A
         git commit -F /tmp/commit_msg.txt || echo "No changes to commit"
     - name: Push changes
       if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
       run: git push
-    - name: Trigger Update TLE Data workflow
-      if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
-      run: |
-        curl --fail-with-body -L -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.CUSTOM_GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository }}/actions/workflows/update_tle_data.yml/dispatches \
-          -d '{"ref":"main","inputs":{"create_release":"false"}}'
