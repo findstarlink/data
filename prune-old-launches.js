@@ -34,6 +34,11 @@ function pruneOldLaunches() {
         return true
     })
 
+    if (tles.satellites.length === 0) {
+        console.log("No launches left in tle.json, preserving atleast one, even if they're old!")
+        return
+    }
+
     if (prunedSatellites.length === 0) {
         console.log(`No launches older than ${MAX_LAUNCH_AGE_DAYS} days found`)
         return
