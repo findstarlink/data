@@ -6,7 +6,8 @@ Updates the TLE and strings data.
 
 ### Operations
 * [check_for_new_launch.yml](.github/workflows/check_for_new_launch.yml) runs every 2 hours to check for a new launch of Starlink.
-* [update_tle_data.yml](.github/workflows/update_tle_data.yml) runs every 6 hours to update the TLE (from Celestrak) and strings data.
+* [prune_old_launches.yml](.github/workflows/prune_old_launches.yml) runs every Thursday to remove launches older than 20 days from `tle.json`.
+* [update_tle_data.yml](.github/workflows/update_tle_data.yml) runs every 12 hours to update the TLE (from Celestrak) and strings data.
 * [ci_deploy_workflow.yml](.github/workflows/ci_deploy_workflow.yml) deploys the latest data to Cloudflare Pages on every push to the main branch.
 * [refresh_cache_workflow.yml](.github/workflows/refresh_cache_workflow.yml) refreshes the Cloudflare and AWS Lambda caches when a new release is created.
 
