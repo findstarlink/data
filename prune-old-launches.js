@@ -36,7 +36,7 @@ function pruneOldLaunches() {
     }
 
     fs.writeFileSync(LOCAL_TLE_JSON_FILE, JSON.stringify(tles, null, 4))
-    console.log(`Pruned old launches (${prunedSatellites.length}): ${prunedSatellites.map(sat => sat.title).join(', ')}`)
+    console.log(`Pruned old launches (${prunedSatellites.length}): ${prunedSatellites.map(sat => sat.title || sat.name).join(', ')}`)
 }
 
 process.on('unhandledRejection', reason => {
