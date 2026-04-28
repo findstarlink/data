@@ -1,0 +1,55 @@
+name: Prune Old Launches
+run-name: Prune Old Launches
+on:
+  schedule:
+    - cron: '0 0 * * 4'  # Runs every Thursday
+  workflow_dispatch:
+jobs:
+  prune_old_launches:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+    - name: Set up Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: 22.x
+    - name: Prune old launches
+      id: prune_old_launches
+      run: |
+        node prune-old-launches.js | tee /tmp/output.txt
+        exit_code=${PIPESTATUS[0]}
+        if grep -q "Pruned old launches" /tmp/output.txt; then
+          echo "old_launches_pruned=true" >> $GITHUB_OUTPUT
+        else
+          echo "old_launches_pruned=false" >> $GITHUB_OUTPUT
+        fi
+        exit $exit_code
+      shell: bash
+    - name: Configure Git
+      if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
+      run: |
+        git config --local user.email "findstarlink-data[bot]@users.noreply.github.com"
+        git config --local user.name "findstarlink-data[bot]"
+    - name: Commit changes
+      if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
+      run: |
+        echo "RELEASE: $(cat /tmp/output.txt)" > /tmp/commit_msg.txt
+
+        git add -A
+        git commit -F /tmp/commit_msg.txt || echo "No changes to commit"
+    - name: Push changes
+      if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
+      run: git push
+    - name: Trigger Update TLE Data workflow
+      if: steps.prune_old_launches.outputs.old_launches_pruned == 'true'
+      run: |
+        curl --fail-with-body -L -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.CUSTOM_GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/update_tle_data.yml/dispatches \
+          -d '{"ref":"main","inputs":{"create_release":"false"}}'
