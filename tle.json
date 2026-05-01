@@ -1,6 +1,20 @@
 {
     "satellites": [
         {
+            "name": "starlink382",
+            "title": "Starlink-382 (G10-38)",
+            "tle": [
+                "1 72001C 26099B   26121.79633588  .01251800  00000+0  16205-2 0    02",
+                "2 72001  53.1613  28.2469 0010901 262.4213 358.7709 16.05831566    14"
+            ],
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": null,
+            "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-38&FORMAT=tle",
+            "launchDate": "2026-05-01T18:06:10.000Z",
+            "active": true
+        },
+        {
             "name": "starlink381",
             "title": "Starlink-381 (G17-36) (new)",
             "tle": [
