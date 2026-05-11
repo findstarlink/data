@@ -8,7 +8,7 @@
                 "2 70635  97.2871 342.7826 0001111 247.2402 328.5776 16.04413734    16"
             ],
             "stdMag": 5,
-            "noradId": "70635",
+            "noradId": "70623",
             "intDes": null,
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2026-05-06T03:59:19.000Z",
@@ -192,7 +192,7 @@
                 "2 70597  53.1604 351.0089 0000729  69.1319 345.0030 15.92659186    10"
             ],
             "stdMag": 5,
-            "noradId": "70597",
+            "noradId": "70594",
             "intDes": null,
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2026-05-01T18:06:10.000Z",
