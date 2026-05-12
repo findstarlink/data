@@ -3,64 +3,66 @@ const celestrak = require('./celestrak')
 const util = require('./util')
 
 let satCoordCache = {}
-const SATS_WITH_MISSING_TLE = []
+const SATS_WITH_MISSING_ORBITAL_DATA = []
 
-module.exports = { updateTLE }
+module.exports = { updateSatData }
 
-async function updateTLE(TLE) {
-    const newSatData = await updateSatTLEs(TLE)
+async function updateSatData(satData) {
+    SATS_WITH_MISSING_ORBITAL_DATA.length = 0
+
+    const newSatData = await updateSatelliteOrbitData(satData)
 
     await updateLaunchesWithReplacementNoradIds(newSatData)
 
-    if (SATS_WITH_MISSING_TLE.length > 0) {
-        throw new Error('[ERROR] Could not find TLE for ' + SATS_WITH_MISSING_TLE.length + ' satellites in supplemental list: ' + SATS_WITH_MISSING_TLE.join(', '))
+    if (SATS_WITH_MISSING_ORBITAL_DATA.length > 0) {
+        throw new Error('[ERROR] Could not find orbital data for ' + SATS_WITH_MISSING_ORBITAL_DATA.length + ' satellites in supplemental list: ' + SATS_WITH_MISSING_ORBITAL_DATA.join(', '))
     }
 
     return newSatData
 }
 
-async function updateSatTLEs(TLE) {
-    let activeSats = TLE.satellites.filter(sat => sat.active)
+async function updateSatelliteOrbitData(satData) {
+    let activeSats = satData.satellites.filter(sat => sat.active)
 
     for (var i = 0; i < activeSats.length; i++) {
         let sat = activeSats[i]
-        let tle = await celestrak.getTLE(sat.noradId, sat.tleUrl)
+        let dataUrl = sat.dataUrl || sat.tleUrl
+        let orbitalData = await celestrak.getOrbitalData(sat.noradId, dataUrl)
 
-        if (tle === undefined) {
-            SATS_WITH_MISSING_TLE.push(sat.noradId)
-            console.log('Could not find TLE for ' + sat.name + ' (' + sat.noradId + ') in URL: ' + sat.tleUrl)
+        if (orbitalData === undefined) {
+            SATS_WITH_MISSING_ORBITAL_DATA.push(sat.noradId)
+            console.log('Could not find orbital data for ' + sat.name + ' (' + sat.noradId + ') in URL: ' + dataUrl)
             continue
         }
 
-        util.checkTLEAge(sat.name, tle)
-        util.checkTLEValidity(sat.name, tle)
-
-        sat.tle = tle
+        util.checkElementSetAge(sat.name, orbitalData.omm)
+        util.checkElementSetValidity(sat.name, orbitalData.omm)
+        setSatelliteOrbitData(sat, orbitalData, true)
 
         if (sat.batch) {
             for (let idx in sat.batch) {
                 let batchSat = sat.batch[idx]
-                let newTle = await celestrak.getTLE(batchSat.noradId, sat.tleUrl)
-                if (newTle !== undefined) {
-                    batchSat.tle = newTle
+                let batchOrbitalData = await celestrak.getOrbitalData(batchSat.noradId, sat.dataUrl)
+                if (batchOrbitalData !== undefined) {
+                    setSatelliteOrbitData(batchSat, batchOrbitalData, false)
                 }
             }
         }
     }
 
-    return TLE
+    return satData
 }
 
 // replace newly launched sat ids with a supplemental noradId, if available
 async function updateLaunchesWithReplacementNoradIds(newSatData) {
-    let supplementalList = await celestrak.getAllTLEs(celestrak.STARLINK_SUPPLEMENTAL_URL)
+    let supplementalList = await celestrak.getAllOrbitalData(celestrak.STARLINK_SUPPLEMENTAL_URL)
 
     let satsToReplace = newSatData.satellites.filter(sat => {
         if (!sat.active) {
             return false
         }
 
-        if (sat.tleUrl.includes("starlink-g")) {  // it's a new launch
+        if (sat.dataUrl.includes("starlink-g")) {  // it's a new launch
             return true
         }
 
@@ -99,10 +101,10 @@ async function replaceSatNoradId(sat, createBatch) {
     replacementSats = Object.values(replacementSats)
 
     let replacementNoradId = replacementSats[0].noradId
-    let replacementTLE = replacementSats[0].tle
+    let replacementOmm = replacementSats[0].omm
 
     try {
-        util.checkTLEValidity(sat.noradId, replacementTLE)
+        util.checkElementSetValidity(sat.noradId, replacementOmm)
 
         let satLabel = `${sat.name ? sat.name : ''} (${sat.noradId})`
         let logMsg = `Replaced NORAD ID ${satLabel} with ${replacementNoradId}`
@@ -110,20 +112,26 @@ async function replaceSatNoradId(sat, createBatch) {
 
         let oldSatId = sat.noradId
         sat.noradId = replacementNoradId
-        sat.tle = replacementTLE
+        sat.omm = replacementOmm
+        delete sat.satrec
+        delete sat.tle
+        delete sat.tleUrl
 
         // remove from missing list, if present
-        let idx = SATS_WITH_MISSING_TLE.indexOf(oldSatId)
+        let idx = SATS_WITH_MISSING_ORBITAL_DATA.indexOf(oldSatId)
         if (idx !== -1) {
-            SATS_WITH_MISSING_TLE.splice(idx, 1)
+            SATS_WITH_MISSING_ORBITAL_DATA.splice(idx, 1)
         }
 
         if (createBatch) {
-            sat.tleUrl = celestrak.STARLINK_SUPPLEMENTAL_URL
-            sat.batch = replacementSats
+            sat.dataUrl = celestrak.STARLINK_SUPPLEMENTAL_URL
+            sat.batch = replacementSats.map(batchSat => ({
+                noradId: batchSat.noradId,
+                omm: batchSat.omm
+            }))
         }
     } catch (e) {
-        console.error('cannot replace', sat.name, 'with invalid TLE', replacementTLE, e)
+        console.error('cannot replace', sat.name, 'with invalid orbital data', replacementOmm, e)
     }
 }
 
@@ -135,25 +143,22 @@ async function getReplacementSats(satToReplace) {
     // }
 
     satToReplace = {  // keep a local copy
-        tle: [
-            satToReplace.tle[0],
-            satToReplace.tle[1]
-        ]
+        omm: satToReplace.omm
     }
 
     const PATH_CHECK_MINS = 3
 
-    let tleList = await celestrak.getAllTLEs(celestrak.STARLINK_SUPPLEMENTAL_URL)
+    let orbitalDataList = await celestrak.getAllOrbitalData(celestrak.STARLINK_SUPPLEMENTAL_URL)
 
-    // console.log("fetched tle list")
+    // console.log("fetched orbital data list")
 
     let currentCoord = predict.getCurrentSatelliteCoords(satToReplace)
     // console.log('curr coord', currentCoord)
 
     // prepare all the sats
     let allSats = []
-    for (let noradId in tleList) {
-        allSats.push(tleList[noradId])
+    for (let noradId in orbitalDataList) {
+        allSats.push(orbitalDataList[noradId])
     }
 
     // find nearby sats
@@ -163,7 +168,7 @@ async function getReplacementSats(satToReplace) {
                 satCoordCache[sat.noradId] = predict.getCurrentSatelliteCoords(sat)
             }
         } catch (e) {
-            console.error('could not compute current coords for sat', sat.noradId, sat.tle, e)
+            console.error('could not compute current coords for sat', sat.noradId, sat.omm, e)
             return false
         }
         return util.isCoordNearby(satCoordCache[sat.noradId], currentCoord)
@@ -214,4 +219,16 @@ async function getReplacementSats(satToReplace) {
     // console.log('nearby sats following the same path', satsOnSamePath.map(sat => sat.noradId))
 
     return satsOnSamePath
+}
+
+function setSatelliteOrbitData(sat, orbitalData, includeDataUrl) {
+    sat.omm = orbitalData.omm
+
+    if (includeDataUrl) {
+        sat.dataUrl = orbitalData.dataUrl
+    }
+
+    delete sat.tle
+    delete sat.tleUrl
+    delete sat.satrec
 }

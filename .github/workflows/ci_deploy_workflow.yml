@@ -13,11 +13,11 @@ jobs:
       contents: read
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Create Javascript files
       run: |-
-        echo "var TLE = " > tle.js
-        cat tle.json >> tle.js
+        echo "var SAT_DATA = " > sat-data.js
+        cat sat-data.json >> sat-data.js
 
         echo "var STRINGS = " > strings_en-US.js
         cat strings_en-US.json >> strings_en-US.js
@@ -28,7 +28,7 @@ jobs:
       run: |-
         mkdir build
         cp \
-          tle.json tle.js \
+          sat-data.json sat-data.js \
           strings_en-US.json strings_en-US.js \
           celestrak.json celestrak.js \
           build/

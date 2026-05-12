@@ -1,70 +1,54 @@
 const predict = require('sat-timings')
 
-const TLE_UPDATE_ALARM_AGE = 72 * 60 * 60 // 72 hours (in sec)
+const ELEMENT_SET_UPDATE_ALARM_AGE = 72 * 60 * 60 // 72 hours (in sec)
 
 module.exports = {
-    checkTLEAge,
-    checkTLEValidity,
-    getEpochFromTLE,
-    getEpochFromTLEDate,
-    getEpochFromYearAndDay,
+    checkElementSetAge,
+    checkElementSetValidity,
+    getEpochFromOMM,
     getCoordDistanceSquared,
     isCoordNearby
 }
 
-function checkTLEAge(satId, tle) {
+function checkElementSetAge(satId, omm) {
     var epochNow = new Date().getTime() / 1000 // seconds
-    var epochTLE = getEpochFromTLE(tle) // seconds
+    var elementEpoch = getEpochFromOMM(omm) // seconds
 
-    if (epochNow > epochTLE + TLE_UPDATE_ALARM_AGE) {
-        console.log('TLE age', epochNow, epochTLE, (epochNow - epochTLE), TLE_UPDATE_ALARM_AGE)
-        throw "TLE for " + satId + " is out of date!"
+    if (epochNow > elementEpoch + ELEMENT_SET_UPDATE_ALARM_AGE) {
+        console.log('element set age', epochNow, elementEpoch, (epochNow - elementEpoch), ELEMENT_SET_UPDATE_ALARM_AGE)
+        throw "Element set for " + satId + " is out of date!"
     }
 }
 
-function checkTLEValidity(satName, tle) {
+function checkElementSetValidity(satName, omm) {
     let sat = {
         "name": "starlink",
         "title": "Starlink",
-        "tle": tle,
+        "omm": omm,
         "stdMag": 5
     }
+
     try {
-        let res = predict.getVisibleTimes(sat, 20.7984, -156.3319, { daysCount: 5, startDaysOffset: -1 })
+        predict.getVisibleTimes(sat, 20.7984, -156.3319, { daysCount: 5, startDaysOffset: -1 })
     } catch (e) {
-        console.log('Error using new TLE for ' + satName, e)
+        console.log('Error using new element set for ' + satName, e)
         throw e
     }
 }
 
-function getEpochFromTLE(tle) {
-    var line1 = tle[0].replace(/\ +/g, ' ')
-    var tleDate = line1.split(' ')[3]
-    tleDate = tleDate.split('.')[0]
+function getEpochFromOMM(omm) {
+    var epochMs = new Date(omm.EPOCH).getTime()
 
-    return getEpochFromTLEDate(tleDate)
-}
+    if (Number.isNaN(epochMs)) {
+        throw new Error(`Invalid OMM epoch: ${omm.EPOCH}`)
+    }
 
-function getEpochFromTLEDate(tleDate) {
-    var tleYear = tleDate.substring(0, 2)
-    var tleDayOfYear = tleDate.substring(2)
-    tleYear = parseInt(tleYear)
-    tleDayOfYear = parseInt(tleDayOfYear)
-
-    return getEpochFromYearAndDay(tleYear, tleDayOfYear) // sec
-}
-
-function getEpochFromYearAndDay(epochYear, epochDays) {
-    var d = new Date(2000 + epochYear, 0)
-    var days = parseInt(epochDays)
-    d.setDate(days)
-
-    return d.getTime() / 1000 // sec
+    return Math.floor(epochMs / 1000)
 }
 
 function getCoordDistanceSquared(coordA, coordB) {
     let x = coordA[0] - coordB[0]
-    let y = coordB[1] - coordB[1]
+    let y = coordA[1] - coordB[1]
     return x * x + y * y
 }
 

@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const LOCAL_TLE_JSON_FILE = 'tle.json'
+const LOCAL_SAT_DATA_JSON_FILE = 'sat-data.json'
 const ONE_DAY = 24 * 60 * 60 * 1000
 const MAX_LAUNCH_AGE_DAYS = 20
 const MAX_LAUNCH_AGE_MS = MAX_LAUNCH_AGE_DAYS * ONE_DAY
@@ -10,12 +10,12 @@ function getSatelliteLabel(sat) {
 }
 
 function pruneOldLaunches() {
-    const tles = JSON.parse(fs.readFileSync(LOCAL_TLE_JSON_FILE, 'utf8'))
-    const satellitesBefore = tles.satellites
+    const satData = JSON.parse(fs.readFileSync(LOCAL_SAT_DATA_JSON_FILE, 'utf8'))
+    const satellitesBefore = satData.satellites
     const now = Date.now()
     const prunedSatellites = []
 
-    tles.satellites = satellitesBefore.filter(sat => {
+    satData.satellites = satellitesBefore.filter(sat => {
         if (!sat.launchDate) {
             return true
         }
@@ -34,8 +34,8 @@ function pruneOldLaunches() {
         return true
     })
 
-    if (tles.satellites.length === 0) {
-        console.log("No launches left in tle.json, preserving atleast one, even if they're old!")
+    if (satData.satellites.length === 0) {
+        console.log("No launches left in sat-data.json, preserving atleast one, even if they're old!")
         return
     }
 
@@ -44,7 +44,7 @@ function pruneOldLaunches() {
         return
     }
 
-    fs.writeFileSync(LOCAL_TLE_JSON_FILE, JSON.stringify(tles, null, 4))
+    fs.writeFileSync(LOCAL_SAT_DATA_JSON_FILE, JSON.stringify(satData, null, 4))
     console.log(`Pruned old launches (${prunedSatellites.length}): ${prunedSatellites.map(getSatelliteLabel).join(', ')}`)
 }
 

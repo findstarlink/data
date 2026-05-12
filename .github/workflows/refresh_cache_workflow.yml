@@ -17,8 +17,8 @@ jobs:
           -H "Content-Type: application/json" \
           --data '{
             "files": [
-              "https://data.findstarlink.com/tle.json",
-              "https://data.findstarlink.com/tle.js",
+              "https://data.findstarlink.com/sat-data.json",
+              "https://data.findstarlink.com/sat-data.js",
               "https://data.findstarlink.com/strings_en-US.json",
               "https://data.findstarlink.com/strings_en-US.js",
               "https://data.findstarlink.com/celestrak.json",
