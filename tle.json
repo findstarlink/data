@@ -12,7 +12,7 @@
             "intDes": null,
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2026-05-06T03:59:19.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "70635",
@@ -196,7 +196,7 @@
             "intDes": null,
             "tleUrl": "http://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=tle",
             "launchDate": "2026-05-01T18:06:10.000Z",
-            "active": true,
+            "active": false,
             "batch": [
                 {
                     "noradId": "70597",
