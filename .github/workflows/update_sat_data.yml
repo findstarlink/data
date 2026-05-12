@@ -1,0 +1,63 @@
+# Generated initially using github-actions-wizard (https://github.com/cmdr2/github-actions-wizard)
+
+name: Update Satellite Data
+run-name: Update Satellite Data
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # Runs every 12 hours
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: 'Create a release with RELEASE prefix'
+        required: false
+        default: 'false'
+        type: boolean
+jobs:
+  update_satellite_data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 22.x
+        cache: npm
+        cache-dependency-path: update-data/package.json
+    - name: Install dependencies
+      run: |
+        cd update-data
+        npm ci
+    - name: Update the data
+      run: |
+        cd update-data
+        node index.js | tee /tmp/output.txt
+        exit_code=${PIPESTATUS[0]}
+        exit $exit_code
+      shell: bash
+    - name: Configure Git
+      run: |
+        git config --local user.email "findstarlink-data[bot]@users.noreply.github.com"
+        git config --local user.name "findstarlink-data[bot]"
+    - name: Commit changes
+      run: |
+        if grep -q "Replaced NORAD ID" /tmp/output.txt; then
+          echo "RELEASE: $(cat /tmp/output.txt)" > /tmp/commit_msg.txt
+        else
+          if [[ "${{ github.event.inputs.create_release }}" == "true" ]]; then
+            prefix="RELEASE: "
+          else
+            prefix=""
+          fi
+
+          echo "${prefix}Update Satellite data" > /tmp/commit_msg.txt
+        fi
+
+        git add -A
+        git commit -F /tmp/commit_msg.txt || echo "No changes to commit"
+    - name: Push changes
+      run: git push
