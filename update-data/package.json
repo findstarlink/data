@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "dependencies": {
-        "sat-timings": "^1.0"
+        "sat-timings": "^2.0"
     },
     "author": "",
     "license": "ISC"
