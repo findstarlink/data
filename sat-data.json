@@ -2,7 +2,7 @@
     "satellites": [
         {
             "name": "starlink383",
-            "title": "Starlink-383 (G17-29) (new)",
+            "title": "Starlink-383 (G17-29)",
             "stdMag": 5,
             "noradId": "69025",
             "intDes": null,
