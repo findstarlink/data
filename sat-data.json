@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink388",
+            "title": "Starlink-388 (G17-41)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-41 SINGLE",
+                "OBJECT_ID": "2026-119B",
+                "EPOCH": "2026-05-30T16:26:42.659981",
+                "MEAN_MOTION": 16.03417095,
+                "ECCENTRICITY": 0.0010488,
+                "INCLINATION": 97.2909,
+                "RA_OF_ASC_NODE": 175.3293,
+                "ARG_OF_PERICENTER": 272.7954,
+                "MEAN_ANOMALY": 100.8417,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0014286,
+                "MEAN_MOTION_DOT": 0.0090345,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.177",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-119B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-41&FORMAT=json",
+            "launchDate": "2026-05-30T15:25:10.000Z",
+            "active": true
+        },
+        {
             "name": "starlink387",
             "title": "Starlink-387 (G17-37) (new)",
             "omm": {
