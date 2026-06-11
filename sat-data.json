@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink393",
+            "title": "Starlink-393 (G17-44)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-44 SINGLE",
+                "OBJECT_ID": "2026-130B",
+                "EPOCH": "2026-06-11T16:07:46.370035",
+                "MEAN_MOTION": 16.03526044,
+                "ECCENTRICITY": 0.001154,
+                "INCLINATION": 97.2913,
+                "RA_OF_ASC_NODE": 182.3449,
+                "ARG_OF_PERICENTER": 282.2579,
+                "MEAN_ANOMALY": 92.3653,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0012565,
+                "MEAN_MOTION_DOT": 0.0079924,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.180",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-130B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-44&FORMAT=json",
+            "launchDate": "2026-06-11T15:05:59.000Z",
+            "active": true
+        },
+        {
             "name": "starlink392",
             "title": "Starlink-392 (G10-35) (new)",
             "omm": {
