@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink395",
+            "title": "Starlink-395 (G17-54)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-54 SINGLE",
+                "OBJECT_ID": "2026-135B",
+                "EPOCH": "2026-06-15T15:40:25.960022",
+                "MEAN_MOTION": 16.0370357,
+                "ECCENTRICITY": 0.0011843,
+                "INCLINATION": 97.2902,
+                "RA_OF_ASC_NODE": 179.4381,
+                "ARG_OF_PERICENTER": 283.73,
+                "MEAN_ANOMALY": 90.8675,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0012359,
+                "MEAN_MOTION_DOT": 0.0079481,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.185",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-135B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-54&FORMAT=json",
+            "launchDate": "2026-06-15T15:34:35.000Z",
+            "active": true
+        },
+        {
             "name": "starlink394",
             "title": "Starlink-394 (G10-54) (new)",
             "omm": {
