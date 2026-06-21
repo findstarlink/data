@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink396",
+            "title": "Starlink-396 (G17-28)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-28 SINGLE",
+                "OBJECT_ID": "2026-142B",
+                "EPOCH": "2026-06-21T16:13:35.740013",
+                "MEAN_MOTION": 16.03581907,
+                "ECCENTRICITY": 0.0010213,
+                "INCLINATION": 97.2898,
+                "RA_OF_ASC_NODE": 193.7841,
+                "ARG_OF_PERICENTER": 268.454,
+                "MEAN_ANOMALY": 104.3537,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0011344,
+                "MEAN_MOTION_DOT": 0.0072151,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.175",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-142B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-28&FORMAT=json",
+            "launchDate": "2026-06-21T16:39:06.000Z",
+            "active": true
+        },
+        {
             "name": "starlink395",
             "title": "Starlink-395 (G17-54) (new)",
             "omm": {
