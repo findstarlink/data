@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink398",
+            "title": "Starlink-398 (G17-40)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-40 SINGLE",
+                "OBJECT_ID": "2026-148B",
+                "EPOCH": "2026-06-28T15:37:55.699968",
+                "MEAN_MOTION": 16.03625771,
+                "ECCENTRICITY": 0.0010947,
+                "INCLINATION": 97.2899,
+                "RA_OF_ASC_NODE": 191.655,
+                "ARG_OF_PERICENTER": 275.1013,
+                "MEAN_ANOMALY": 99.0625,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0013996,
+                "MEAN_MOTION_DOT": 0.0089662,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.185",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-148B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-40&FORMAT=json",
+            "launchDate": "2026-06-28T16:09:18.000Z",
+            "active": true
+        },
+        {
             "name": "starlink397",
             "title": "Starlink-397 (G17-45) (new)",
             "omm": {
