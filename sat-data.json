@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink402",
+            "title": "Starlink-402 (G17-48)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-48 SINGLE",
+                "OBJECT_ID": "2026-159B",
+                "EPOCH": "2026-07-11T04:03:32.980003",
+                "MEAN_MOTION": 16.03711356,
+                "ECCENTRICITY": 0.001072,
+                "INCLINATION": 97.291,
+                "RA_OF_ASC_NODE": 30.3965,
+                "ARG_OF_PERICENTER": 276.5641,
+                "MEAN_ANOMALY": 97.3052,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0011452,
+                "MEAN_MOTION_DOT": 0.0073474,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.148",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-159B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-48&FORMAT=json",
+            "launchDate": "2026-07-11T03:01:57.000Z",
+            "active": true
+        },
+        {
             "name": "starlink401",
             "title": "Starlink-401 (G10-42) (new)",
             "omm": {
