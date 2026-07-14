@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink404",
+            "title": "Starlink-404 (G10-45)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G10-45 SINGLE",
+                "OBJECT_ID": "2026-161B",
+                "EPOCH": "2026-07-14T10:11:39.239981",
+                "MEAN_MOTION": 16.09053496,
+                "ECCENTRICITY": 0.0007458,
+                "INCLINATION": 53.1611,
+                "RA_OF_ASC_NODE": 326.6786,
+                "ARG_OF_PERICENTER": 292.2604,
+                "MEAN_ANOMALY": 332.9275,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0011887,
+                "MEAN_MOTION_DOT": 0.011202,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.226",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-161B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-45&FORMAT=json",
+            "launchDate": "2026-07-14T09:10:12.000Z",
+            "active": true
+        },
+        {
             "name": "starlink403",
             "title": "Starlink-403 (G15-14)",
             "omm": {
