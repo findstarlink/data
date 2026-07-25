@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink406",
+            "title": "Starlink-406 (G17-51)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-51 SINGLE",
+                "OBJECT_ID": "2026-171B",
+                "EPOCH": "2026-07-25T16:45:48.959971",
+                "MEAN_MOTION": 16.03659455,
+                "ECCENTRICITY": 0.0010718,
+                "INCLINATION": 97.2903,
+                "RA_OF_ASC_NODE": 235.304,
+                "ARG_OF_PERICENTER": 275.3888,
+                "MEAN_ANOMALY": 98.5002,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.001169,
+                "MEAN_MOTION_DOT": 0.0074792,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.173",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-171B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-51&FORMAT=json",
+            "launchDate": "2026-07-25T15:51:55.000Z",
+            "active": true
+        },
+        {
             "name": "starlink405",
             "title": "Starlink-405 (G17-39) (new)",
             "omm": {
