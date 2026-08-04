@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink408",
+            "title": "Starlink-408 (G17-53)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G17-53 SINGLE",
+                "OBJECT_ID": "2026-177B",
+                "EPOCH": "2026-08-04T18:06:33.207005",
+                "MEAN_MOTION": 16.03732198,
+                "ECCENTRICITY": 0.0010689,
+                "INCLINATION": 97.2917,
+                "RA_OF_ASC_NODE": 265.4241,
+                "ARG_OF_PERICENTER": 274.9576,
+                "MEAN_ANOMALY": 98.5211,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.00117,
+                "MEAN_MOTION_DOT": 0.007518,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.160",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-177B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-53&FORMAT=json",
+            "launchDate": "2026-08-04T17:05:03.000Z",
+            "active": true
+        },
+        {
             "name": "starlink407",
             "title": "Starlink-407 (G17-52) (new)",
             "omm": {
