@@ -25,9 +25,9 @@
                 "DATA_SOURCE": "SpaceX-SV"
             },
             "stdMag": 5,
-            "noradId": "72001",
+            "noradId": "799501384",
             "intDes": "2026-184B",
-            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g17-49&FORMAT=json",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=json",
             "launchDate": "2026-08-12T04:46:00.000Z",
             "active": true
         },
