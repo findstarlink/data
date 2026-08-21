@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink413",
+            "title": "Starlink-413 (G10-39)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G10-39 SINGLE",
+                "OBJECT_ID": "2026-192B",
+                "EPOCH": "2026-08-21T16:15:52.159997",
+                "MEAN_MOTION": 16.09461698,
+                "ECCENTRICITY": 0.0008437,
+                "INCLINATION": 53.1605,
+                "RA_OF_ASC_NODE": 95.6255,
+                "ARG_OF_PERICENTER": 280.6095,
+                "MEAN_ANOMALY": 344.6923,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.0011615,
+                "MEAN_MOTION_DOT": 0.011258,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.190",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-192B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g10-39&FORMAT=json",
+            "launchDate": "2026-08-21T15:14:22.000Z",
+            "active": true
+        },
+        {
             "name": "starlink412",
             "title": "Starlink-412 (G17-50) (new)",
             "omm": {
