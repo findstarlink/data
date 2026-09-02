@@ -1,6 +1,37 @@
 {
     "satellites": [
         {
+            "name": "starlink417",
+            "title": "Starlink-417 (G15-23)",
+            "omm": {
+                "OBJECT_NAME": "STARLINK-G15-23 SINGLE",
+                "OBJECT_ID": "2026-201B",
+                "EPOCH": "2026-09-02T09:44:20.040000",
+                "MEAN_MOTION": 16.05882892,
+                "ECCENTRICITY": 0.0010253,
+                "INCLINATION": 70.008,
+                "RA_OF_ASC_NODE": 187.5107,
+                "ARG_OF_PERICENTER": 274.6829,
+                "MEAN_ANOMALY": 99.4779,
+                "EPHEMERIS_TYPE": 0,
+                "CLASSIFICATION_TYPE": "C",
+                "NORAD_CAT_ID": 72001,
+                "ELEMENT_SET_NO": 0,
+                "REV_AT_EPOCH": 1,
+                "BSTAR": 0.001098,
+                "MEAN_MOTION_DOT": 0.008172,
+                "MEAN_MOTION_DDOT": 0,
+                "RMS": "0.122",
+                "DATA_SOURCE": "SpaceX-SV"
+            },
+            "stdMag": 5,
+            "noradId": "72001",
+            "intDes": "2026-201B",
+            "dataUrl": "https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink-g15-23&FORMAT=json",
+            "launchDate": "2026-09-02T08:42:12.000Z",
+            "active": true
+        },
+        {
             "name": "starlink416",
             "title": "Starlink-416 (G15-22) (new)",
             "omm": {
