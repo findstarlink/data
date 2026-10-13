@@ -47,7 +47,7 @@ jobs:
       if: steps.check_new_launch.outputs.new_launch == 'true'
       run: git push
     - name: Trigger Update Satellite Data workflow
-      #if: steps.check_new_launch.outputs.new_launch == 'true'
+      if: steps.check_new_launch.outputs.new_launch == 'true'
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
