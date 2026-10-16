@@ -22,6 +22,9 @@ jobs:
         echo "var STRINGS = " > strings_en-US.js
         cat strings_en-US.json >> strings_en-US.js
 
+        # Download the current CelesTrak mirror to build the published celestrak.js/celestrak.json
+        CELESTRAK_URL="https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=json"
+        curl -f --retry 3 --max-time 120 "$CELESTRAK_URL" -o celestrak.json
         echo "var CELESTRAK = " > celestrak.js
         cat celestrak.json >> celestrak.js
     - name: Copy files into the build
