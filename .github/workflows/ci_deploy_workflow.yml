@@ -22,9 +22,26 @@ jobs:
         echo "var STRINGS = " > strings_en-US.js
         cat strings_en-US.json >> strings_en-US.js
 
-        # Download the current CelesTrak mirror to build the published celestrak.js/celestrak.json
+        # Fetch the current CelesTrak data. A 403 means CelesTrak's data hasn't changed
+        # since our last update, so we fall back to our own published mirror from
+        # Cloudflare Pages to build a complete bundle. Any other failure (e.g. 5xx,
+        # timeout) must fail the workflow, since we wouldn't have up-to-date data.
         CELESTRAK_URL="https://celestrak.org/NORAD/elements/supplemental/sup-gp.php?FILE=starlink&FORMAT=json"
-        curl -f --retry 3 --max-time 120 "$CELESTRAK_URL" -o celestrak.json
+        MIRROR_URL="https://data.findstarlink.com/celestrak.json"
+        HTTP_CODE=$(curl -s --retry 3 --max-time 120 -w '%{http_code}' -o celestrak.json "$CELESTRAK_URL")
+        case "$HTTP_CODE" in
+          200)
+            echo "Fetched fresh data from CelesTrak (HTTP $HTTP_CODE)"
+            ;;
+          403)
+            echo "CelesTrak returned 403 (data unchanged), falling back to our Cloudflare Pages mirror"
+            curl -f --retry 3 --max-time 120 "$MIRROR_URL" -o celestrak.json
+            ;;
+          *)
+            echo "CelesTrak returned unexpected HTTP status: $HTTP_CODE" >&2
+            exit 1
+            ;;
+        esac
         echo "var CELESTRAK = " > celestrak.js
         cat celestrak.json >> celestrak.js
     - name: Copy files into the build
