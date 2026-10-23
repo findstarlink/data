@@ -14,7 +14,7 @@ module.exports = {
 
 async function downloadSupplementalList() {
     const res = await fetch(STARLINK_SUPPLEMENTAL_URL)
-    validateResponseOk(res, STARLINK_SUPPLEMENTAL_URL)
+    await validateResponseOk(res, STARLINK_SUPPLEMENTAL_URL)
 
     const json = normalizeOmmList(await res.json(), STARLINK_SUPPLEMENTAL_URL)
     cache[STARLINK_SUPPLEMENTAL_URL] = json
@@ -36,7 +36,7 @@ async function getAllOrbitalData(dataUrl) {
         orbitalData = JSON.parse(fs.readFileSync(LOCAL_STARLINK_SUPPLEMENTAL_FILE, 'utf8'))
     } else {
         const res = await fetch(dataUrl)
-        validateResponseOk(res, dataUrl)
+        await validateResponseOk(res, dataUrl)
         orbitalData = normalizeOmmList(await res.json(), dataUrl)
     }
 
@@ -75,8 +75,15 @@ function normalizeOmmEntry(raw, dataUrl) {
     }
 }
 
-function validateResponseOk(res, dataUrl) {
+async function validateResponseOk(res, dataUrl) {
     if (!res.ok) {
+        // CelesTrak returns this in a 403 response when the SupGP file hasn't changed
+        // since our last successful fetch. Nothing to do, so skip the whole update.
+        if (res.status === 403 && (await res.text()).includes('SupGP data has not updated since last successful')) {
+            console.log('SupGP data has not updated since last successful fetch. Nothing to do, skipping update.')
+            process.exit(0)
+        }
+
         throw new Error(`CelesTrak request failed (${res.status}) for ${dataUrl}`)
     }
 }
