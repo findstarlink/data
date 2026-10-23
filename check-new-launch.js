@@ -31,8 +31,11 @@ async function checkForLaunch() {
 }
 
 async function checkAndRegisterLaunchData(launchName, launchIntDes, launchDateTs) {
-    let groupInfo = launchName.split(" ") // launchName example: "Falcon 9 Block 5 | Starlink Group 10-13"
-    groupInfo = groupInfo[groupInfo.length - 1]
+    let groupInfo = extractLaunchGroup(launchName)
+    if (groupInfo === null) {
+        console.log(`Could not parse the Starlink group from launch name: ${launchName}, skipping!`)
+        return
+    }
 
     // check if this launch has already been recorded in sat-data.json
     const satData = JSON.parse(fs.readFileSync(LOCAL_SAT_DATA_JSON_FILE, 'utf8'))
@@ -87,6 +90,15 @@ async function checkAndRegisterLaunchData(launchName, launchIntDes, launchDateTs
     fs.writeFileSync(LOCAL_SAT_DATA_JSON_FILE, JSON.stringify(satData, null, 4))
 }
 
+// extracts the Starlink group (e.g. "10-13") from a launch name:
+//   "Falcon 9 Block 5 | Starlink Group 10-13" -> "10-13"
+//   "Starship | Starlink Group 31-1 (Starship Flight 14)" -> "31-1"
+// returns null if the name has no parseable group.
+function extractLaunchGroup(launchName) {
+    const match = launchName.match(/starlink(?:\s+group)?\s+(\d+-\d+)/i)
+    return match ? match[1] : null
+}
+
 // Global error handlers for unhandled promise rejections and uncaught exceptions
 process.on('unhandledRejection', (reason, promise) => {
     console.error('[FATAL] Unhandled Promise Rejection:', reason)
@@ -100,4 +112,8 @@ process.on('uncaughtException', (err) => {
 
 // checkAndRegisterLaunchData("Falcon 9 Block 5 | Starlink Group 10-14", "2024-11-05T11:10:00Z")
 
-checkForLaunch()
+if (require.main === module) {
+    checkForLaunch()
+}
+
+module.exports = { extractLaunchGroup }
